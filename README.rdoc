@@ -13,15 +13,24 @@ Use Apache Commons File upload with a rack environment to handle upload file str
 == SYNOPSIS:
 
   require 'jcommons/rack_upload'
+
   class MyRackHandler
   	def call(env)
   	  JCommons::RackUpload.parse_request(env) do |item|
   	    if item.form_field? #regular form field
-  	      do_something(item.field_name)
+  	      hand_form_field(item.field_name)
   	    else #this is a upload stream
   	      handle_stream :field_name => item.field_name, :orig_filename => item.name, :java_stream => item.open_stream
   	    end
   	  end
+  	end
+
+  	def handle_form_field(*args)
+  	  #do something nice
+  	end
+
+  	def handle_stream(options)
+  	  #do something nice
   	end
   end
 
@@ -37,7 +46,7 @@ Use Apache Commons File upload with a rack environment to handle upload file str
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009 The Frontside Software, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
