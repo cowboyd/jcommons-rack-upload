@@ -1,0 +1,59 @@
+= jcommons-rack-upload
+
+* http://github.com/cowboyd/jcommons-rack-upload
+
+== DESCRIPTION:
+
+Use Apache Commons File upload with a rack environment to handle upload file streams
+
+== FEATURES/PROBLEMS:
+
+* Parse a heterogeneous environment of form fields and file input streams
+
+== SYNOPSIS:
+
+  require 'jcommons/rack_upload'
+  class MyRackHandler
+  	def call(env)
+  	  JCommons::RackUpload.parse_request(env) do |item|
+  	    if item.form_field? #regular form field
+  	      do_something(item.field_name)
+  	    else #this is a upload stream
+  	      handle_stream :field_name => item.field_name, :orig_filename => item.name, :java_stream => item.open_stream
+  	    end
+  	  end
+  	end
+  end
+
+== REQUIREMENTS:
+
+* JRuby
+
+== INSTALL:
+
+* gem install jcommons-rack-upload
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2009 FIXME full name
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
